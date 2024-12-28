@@ -40,8 +40,8 @@ const Login = () => {
         </div>
         <button type="submit">Ingresar</button>
         <div className="links">
-          <Link to="/register">¿No tienes cuenta? Regístrate</Link>
-          <Link to="/recover">¿Olvidaste tu contraseña?</Link>
+          <Link to="/auth/register">¿No tienes cuenta? Regístrate</Link>
+          <Link to="/auth/recovery">¿Olvidaste tu contraseña?</Link>
         </div>
       </form>
     </div>

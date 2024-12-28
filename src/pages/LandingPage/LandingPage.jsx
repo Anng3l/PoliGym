@@ -5,7 +5,7 @@ const LandingPage = () => {
   return (
     <>
         <div>landingPage</div>
-        <Link to='/auth'> Login </Link>
+        <Link to='/auth/login'> Login </Link>
     </>
   )
 }
