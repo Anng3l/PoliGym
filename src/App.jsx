@@ -14,6 +14,8 @@ import GestionUsuarios from "./pages/Admin/AdminGestionUsuarios/GestionUsuarios.
 import Admin_newClient from "./pages/Admin/AdminNewClient/AdminNewClient.jsx";
 import AdminLayout from "./pages/Admin/AdminLayout/AdminLayout.jsx";
 
+import EntrenadorAsistencias from "./pages/Entrenador/EntrenadorAsistencias/EntrenadorAsistencias.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -67,7 +69,11 @@ const router = createBrowserRouter([
 
   //Ruteo de las páginas entrenador
   {
-
+    path: "/entrenador",
+    element: <EntrenadorAsistencias></EntrenadorAsistencias>,
+    children: [
+      {}
+    ]
   },
 
   //Ruteo de las páginas cliente
