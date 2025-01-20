@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./Register.css";
 
 const Register = () => {
@@ -9,27 +10,60 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { firstName, lastName, email, password, confirmPassword } = formData;
-
-    if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden");
-      return;
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "El nombre es obligatorio.";
     }
-
-    // Aquí puedes manejar el envío del formulario
-    console.log("Datos enviados:", { firstName, lastName, email, password });
-    setError(""); // Limpiar errores después de un envío exitoso
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "El apellido es obligatorio.";
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "El correo electrónico no es válido.";
+    }
+    if (formData.password.length < 6) {
+      newErrors.password = "La contraseña debe tener al menos 6 caracteres.";
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Si no hay errores, el formulario es válido
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await axios.post("http://tu-backend.com/api/register", {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+        });
+        console.log("Registro exitoso:", response.data);
+        setSuccessMessage("Registro exitoso. Ahora puedes iniciar sesión.");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      } catch (err) {
+        console.error("Error al registrar:", err);
+        setErrors({ apiError: "Error al registrar. Inténtalo más tarde." });
+      }
+    }
+  };S
 
   return (
     <div className="register-container">
