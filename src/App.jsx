@@ -19,6 +19,8 @@ import AdminLayout from "./pages/Admin/AdminLayout/AdminLayout.jsx";
 
 import EntrenadorAsistencias from "./pages/Entrenador/EntrenadorAsistencias/EntrenadorAsistencias.jsx";
 
+import Navbar from "./components/navegacion/navbar.jsx";
+import ClienteEntrenamientos from "./pages/Cliente/ClienteEntrenamientos/ClienteEntrenamientos.jsx";
 
 const router = createBrowserRouter([
   {
@@ -81,7 +83,11 @@ const router = createBrowserRouter([
 
   //Ruteo de las páginas cliente
   {
-
+    path: "/cliente",
+    element: <ClienteEntrenamientos></ClienteEntrenamientos>,
+    children: [
+      {}
+    ]
   }
 ])
 
@@ -95,7 +101,17 @@ const App = () => {
 };
 
 
-
+// const App = () => {
+//   return (
+//     <div>
+//       <Navbar />
+//       <div className="container">
+//         <h1>Bienvenido a PoliGym</h1>
+//         <p>Contenido principal de la página.</p>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default App;
 
