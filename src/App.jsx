@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, createBrowserRouter, RouterProvider } from "react-router-dom";
 
+//Importación de Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 //Páginas ruteadas
 import LandingPage from "./pages/LandingPage/LandingPage.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
@@ -90,6 +93,9 @@ const App = () => {
     </>
   );
 };
+
+
+
 
 export default App;
 
