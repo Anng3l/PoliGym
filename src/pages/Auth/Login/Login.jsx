@@ -18,7 +18,7 @@ const Login = () => {
         password,
       });
 
-      const { token } = response.data; // Asegúrate de que tu backend envíe el token en esta propiedad
+      const { token } = response.data; 
       localStorage.setItem("authToken", token); // Guarda el token en localStorage
       console.log("Login exitoso, token guardado:", token);
 

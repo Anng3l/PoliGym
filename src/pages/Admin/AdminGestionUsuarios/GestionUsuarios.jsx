@@ -3,6 +3,7 @@ import { FaEdit, FaTrash, FaArrowLeft, FaArrowRight,FaUserPlus } from "react-ico
 import "./GestionUsuarios.css";
 import { DiVim } from "react-icons/di";
 import { BiColor } from "react-icons/bi";
+import axios from "axios";
 
 const GestionUsuarios = () => {
   const [users, setUsers] = useState([]);
@@ -34,28 +35,24 @@ const GestionUsuarios = () => {
     const closeModalNest = () => setIsModalOpenNest(false);
 
   // Simula la obtencion de datos del backend
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem("token"); // Obtener el token
+      const response = await axios.get("http://localhost:7001/api/users", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Enviar token en el encabezado si es necesario
+        },
+      });
+  
+      setUsers(response.data); // Asumiendo que la API devuelve una lista de usuarios
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error);
+    }
+  };
+  
   useEffect(() => {
-    const fetchUsers = async () => {
-      // Reemplazar con una llamada de la api
-      const mockData = [
-        { id: 1, name: "John Doe", email: "john@example.com", role: "Admin" },
-        { id: 2, name: "Jane Smith", email: "jane@example.com", role: "User" },
-        { id: 3, name: "Alice Johnson", email: "alice@example.com", role: "Editor" },
-        { id: 4, name: "Bob Brown", email: "bob@example.com", role: "User" },
-        { id: 5, name: "Eve White", email: "eve@example.com", role: "Admin" },
-        { id: 6, name: "Charlie Black", email: "charlie@example.com", role: "Editor" },
-        { id: 7, name: "David Green", email: "david@example.com", role: "User" },
-        { id: 8, name: "Fiona Blue", email: "fiona@example.com", role: "Admin" },
-        { id: 9, name: "Grace Yellow", email: "grace@example.com", role: "User" },
-        { id: 10, name: "Hank Pink", email: "hank@example.com", role: "Editor" },
-        { id: 11, name: "Ivy Orange", email: "ivy@example.com", role: "User" },
-      ];
-      setUsers(mockData);
-    };
-
     fetchUsers();
   }, []);
-
   // logica de paginacion
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
